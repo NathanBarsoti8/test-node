@@ -5,7 +5,7 @@ module.exports = {
 
     get (req, res) {
         Contact.find({
-            status: {
+            active: {
                 $eq: true
             }
         })
@@ -67,7 +67,7 @@ module.exports = {
             city,
             phone,
             email,
-            status: true
+            active: true
         })
         .then(contact => {
             if (contact)
@@ -103,7 +103,7 @@ module.exports = {
             { _id: req.params.id },
             {
               $set: {
-                status: false
+                active: false
               }
             }
         )
