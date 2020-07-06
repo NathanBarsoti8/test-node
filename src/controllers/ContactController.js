@@ -11,12 +11,12 @@ module.exports = {
         })
         .then(contacts => {
             if (contacts == null || contacts.length == 0)
-                return res.status(204).send('No data found'); 
+                return res.status(204).send({ msg: 'Your list is empty.'} ); 
 
-            return res.json(contacts);
+            return res.json({ contacts: contacts });
         })
-        .catch(error => {
-            return res.json(error);
+        .catch(() => {
+            return res.json({ msg: 'A problem occurred and we were unable to complete your request.' });
         });
     },
 
@@ -24,7 +24,7 @@ module.exports = {
         Contact.findById(req.params.id)
         .then(async contact => {
             if (!contact)
-                return res.status(404).send('No data found');
+                return res.status(404).send({ msg: 'No contact found.' });
 
             let uri = contact.city;
             let city = encodeURI(uri);
@@ -50,8 +50,8 @@ module.exports = {
                 return res.json({contact: contact});
         
         })
-        .catch(error => {
-            return res.json(error);
+        .catch(() => {
+            return res.json({ msg: 'A problem occurred and we were unable to complete your request.' });
         });
     },
 
@@ -59,7 +59,7 @@ module.exports = {
         const { name, address, city, phone, email } = req.body;
 
         if (!name)
-            return res.status(400).send(`You can't save a contact without name.`); 
+            return res.status(400).send({ msg: `You can't save a contact without name.` }); 
     
         Contact.create({
             name,
@@ -71,12 +71,12 @@ module.exports = {
         })
         .then(contact => {
             if (contact)
-                return res.status(200).send(contact);
+                return res.status(200).send({ msg: 'Your contact has been successfully saved.' });
             else
-                return res.status(400).send(`An error ocurrend trying to save new contact.`);
+                return res.status(400).send({ msg: 'An error ocurrend trying to save new contact.' });
         })
-        .catch(error => {
-            return res.json(error);
+        .catch(() => {
+            return res.json({ msg: 'A problem occurred and we were unable to complete your request.' });
         });
     },
 
@@ -89,12 +89,12 @@ module.exports = {
         )
         .then(contact => {
             if (contact)
-                return res.status(200).send(contact);
+                return res.status(200).send({ msg: 'Your contact has been successfully updated.' });
             else
                 return res.status(400).send(`An error ocurrend trying to update a contact.`);
         })
-        .catch(error => {
-            return res.json(error);
+        .catch(() => {
+            return res.json({ msg: 'A problem occurred and we were unable to complete your request.' });
         });
     },
 
@@ -107,11 +107,11 @@ module.exports = {
               }
             }
         )
-        .then(contact => {
-            res.json(contact)
+        .then(() => {
+            return res.status(200).send({ msg: 'Your contact has been successfully deleted.' })
         })
-        .catch(error => {
-            return res.json(error);
+        .catch(() => {
+            return res.json({ msg: 'A problem occurred and we were unable to complete your request' });
         });
     }
 
