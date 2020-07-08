@@ -19,7 +19,7 @@ module.exports = {
             return res.json({ contacts: contacts });
         })
         .catch(() => {
-            return res.json({ msg: 'A problem occurred and we were unable to complete your request.' });
+            return res.status(400).send({ msg: 'A problem occurred and we were unable to complete your request.' });
         });
     },
 
@@ -54,14 +54,12 @@ module.exports = {
         
         })
         .catch(() => {
-            return res.json({ msg: 'A problem occurred and we were unable to complete your request.' });
+            return res.status(400).send({ msg: 'A problem occurred and we were unable to complete your request.' });
         });
     },
 
     create (req, res) {
         const { name, address, city, phone, email } = req.body;
-
-        console.log(name, address)
 
         if (!name)
             return res.status(400).send({ msg: `You can't save a contact without name.` }); 
@@ -99,7 +97,7 @@ module.exports = {
                 return res.status(400).send(`An error ocurrend trying to update a contact.`);
         })
         .catch(() => {
-            return res.json({ msg: 'A problem occurred and we were unable to complete your request.' });
+            return res.status(400).send({ msg: 'A problem occurred and we were unable to complete your request.' });
         });
     },
 
@@ -116,7 +114,7 @@ module.exports = {
             return res.status(200).send({ msg: 'Your contact has been successfully deleted.' })
         })
         .catch(() => {
-            return res.json({ msg: 'A problem occurred and we were unable to complete your request' });
+            return res.status(400).send({ msg: 'A problem occurred and we were unable to complete your request.' });
         });
     }
 

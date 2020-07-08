@@ -13,6 +13,12 @@ npm install
 npm run dev
 ```
 
+## Para rodar os testes
+
+```sh
+npm test
+```
+
 ## Histórico de lançamentos
 
 * 0.0.1

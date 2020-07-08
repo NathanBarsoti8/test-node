@@ -24,3 +24,4 @@ app.listen(port, function() {
     console.log(`API LISTENING ON PORT ${port}`);
 });
 
+module.exports = app;
