@@ -10,6 +10,7 @@ mongoose.connect('mongodb+srv://nathanbarsoti:notebook100@cluster0-cfn0q.mongodb
     useNewUrlParser: true,
     useUnifiedTopology: true
 });
+mongoose.set('useCreateIndex', true);
 
 app.use(express.json());
 app.use(routes);

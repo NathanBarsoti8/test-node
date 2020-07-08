@@ -7,11 +7,14 @@ module.exports = {
         Contact.find({
             active: {
                 $eq: true
-            }
+            },
+            name: new RegExp(req.query.name, 'i'),
+            address: new RegExp(req.query.address, 'i'),
+            email: new RegExp(req.query.email, 'i')
         })
         .then(contacts => {
-            if (contacts == null || contacts.length == 0)
-                return res.status(204).send({ msg: 'Your list is empty.'} ); 
+            if (contacts == null || contacts.length == 0) 
+                return res.status(204).send({ msg: 'Your list is empty.' }); 
 
             return res.json({ contacts: contacts });
         })
@@ -57,6 +60,8 @@ module.exports = {
 
     create (req, res) {
         const { name, address, city, phone, email } = req.body;
+
+        console.log(name, address)
 
         if (!name)
             return res.status(400).send({ msg: `You can't save a contact without name.` }); 
